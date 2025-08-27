@@ -13,7 +13,7 @@ public class CalculadoraView {
     }
 
     public void exibirMenu(String menu){
-        System.out.println(menu);
+        logger.info(menu);
     }
 
 
@@ -21,7 +21,7 @@ public class CalculadoraView {
     public int lerOpcao(){
         while(true){
             try{
-                System.out.println("Digite sua opção: ");
+                logger.info("Digite sua opção: ");
                 return scan.nextInt();
             } catch (java.util.InputMismatchException e){
                 logger.warning("Entrada inválida. Por favor, digite um número.");
@@ -33,7 +33,7 @@ public class CalculadoraView {
     public double lerValor(String mensagem){
         while (true) {
             try {
-                System.out.print(mensagem);
+                logger.info(mensagem);
                 return scan.nextDouble();
             } catch (InputMismatchException e) {
                 logger.warning("Entrada inválida. Por favor, digite um número válido.");
@@ -43,12 +43,11 @@ public class CalculadoraView {
     }
 
     public void exibirResultado(double resultado){
-        System.out.println("O resultado é: " + resultado);
         logger.info("O resultado é: " + resultado);
     }
 
-    public void exibirMensagemErro(String mensagem){
-        logger.severe("Erro: " + mensagem);
+    public void exibirMensagemErro(String mensagem) {
+        logger.severe("Erro: ");
     }
 
     public void fecharScanner(){

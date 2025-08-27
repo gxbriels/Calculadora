@@ -11,6 +11,7 @@ public class CalculadoraController {
     private Logger logger = Logger.getLogger(CalculadoraController.class.getName());
     private CalculadoraView view;
     private Map<Integer, Class<? extends IOperacao>> operacoesMap;
+    private static final String MENSAGEM_ERRO_CALCULO = "Ocorreu um erro ao realizar o cálculo: ";
 
     public CalculadoraController(CalculadoraView view){
         this.view = view;
@@ -40,10 +41,9 @@ public class CalculadoraController {
             } else if(opcao != 5){
                 view.exibirMensagemErro("Opção Inválida !!");
             }
-        } while (opcao != 5);{
-            logger.info("Aplicação encerrada.");
-            view.fecharScanner();
-        }
+        } while (opcao != 5);
+
+        encerrarAplicacao();
     }
 
     public void exibirMenu(){
@@ -78,11 +78,16 @@ public class CalculadoraController {
             double resultado = operacao.calcular(valor1, valor2);
             view.exibirResultado(resultado);
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-            view.exibirMensagemErro("Ocorreu um erro ao realizar o cálculo: " + e.getMessage());
+            view.exibirMensagemErro(MENSAGEM_ERRO_CALCULO + e.getMessage());
         } catch (IllegalArgumentException e){
-            logger.severe("Ocorreu um erro ao realizar o cálculo: " + e.getMessage());
-            view.exibirMensagemErro("Ocorreu um erro ao realizar o cálculo: " + e.getMessage());
+            logger.severe(MENSAGEM_ERRO_CALCULO + e.getMessage());
+            view.exibirMensagemErro(MENSAGEM_ERRO_CALCULO + e.getMessage());
         }
+    }
+
+    private void encerrarAplicacao(){
+        logger.info("Aplicação encerrada.");
+        view.fecharScanner();
     }
 
 }
